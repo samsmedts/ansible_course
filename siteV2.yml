@@ -1,0 +1,20 @@
+---
+- hosts: all
+  become: true
+  pre_tasks:
+ 
+  - name: install update for fedora
+    dnf:
+      name: "*"
+      state: latest
+    when: ansible_distribution == "Fedora"
+
+
+- hosts: db_servers
+  become: true
+  tasks:
+  - name: install mariadb on db_servers
+    ansible.builtin.dnf:
+      name: mariadb
+      state: latest
+    when: ansible_distribution == "Fedora"
